@@ -8,10 +8,10 @@ const app = express();
 const router = express.Router();
 
 router.post("/reply", async (req, res) => {
-  console.log("req ->", req);
-  
-  if (req.data){
-    const {body, fromNumber} = req.data;
+  //console.log("req ->", req);
+
+  if (req.data) {
+    const { body, fromNumber } = req.data;
     console.error("body ->", body);
     console.error("fromNumber ->", fromNumber);
   }
@@ -35,7 +35,7 @@ router.post("/reply", async (req, res) => {
       },
     };
     const response = await axios(options);
-    console.log(response);
+    //console.log(response);
     // const response = await axios.get(
     //   "https://jsonplaceholder.typicode.com/posts"
     // );
@@ -45,7 +45,8 @@ router.post("/reply", async (req, res) => {
     //console.log("posts", posts);
     res.json({
       result: "Este es el reply",
-      //msg: posts,
+      phone: response.data.phone,
+      createdAt: response.data.createdAt,
     });
   } catch (error) {
     console.error("errores ->", error);
