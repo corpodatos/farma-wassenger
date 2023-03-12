@@ -8,13 +8,15 @@ const app = express();
 const router = express.Router();
 
 router.post("/reply", async (req, res) => {
-  //console.log("req ->", req);
+  console.log("req ->", req);
+  console.log("req.body ->", req.body);
 
-  if (req.data) {
-    const { body, fromNumber } = req.data;
-    console.error("body ->", body);
-    console.error("fromNumber ->", fromNumber);
-  }
+
+  // if (req.body) {
+  //   const { data } = req.body;
+  //   console.error("body ->", data.body);
+  //   console.error("fromNumber ->", fromNumber);
+  // }
 
   try {
     const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
