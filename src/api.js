@@ -7,7 +7,7 @@ const app = express();
 
 const router = express.Router();
 
-router.get("/reply", async (req, res) => {
+router.post("/reply", async (req, res) => {
   console.log("req ->", req);
   
   if (req.data){
