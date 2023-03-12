@@ -8,6 +8,9 @@ const app = express();
 const router = express.Router();
 
 router.get("/reply", async (req, res) => {
+  console.log("req ->", req);
+  const {body, fromNumber} = req.data;
+
   try {
     const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
     const WASSENGER_API = process.env.WASSENGER_API;
@@ -20,8 +23,8 @@ router.get("/reply", async (req, res) => {
         Token: WASSENGER_TOKEN,
       },
       data: {
-        phone: MOBILE_REPLY,
-        message: "Hello world, this is a sample message " + new Date(),
+        phone: fromNumber,
+        message: `Escribieron: ${body} - ${new Date()}`,
       },
     };
     const response = await axios(options);
