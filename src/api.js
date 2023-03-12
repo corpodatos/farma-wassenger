@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const serverless = require("serverless-http");
@@ -10,17 +10,18 @@ const router = express.Router();
 router.get("/reply", async (req, res) => {
   try {
     const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
+    const WASSENGER_API = process.env.WASSENGER_API;
     const MOBILE_REPLY = process.env.MOBILE_REPLY;
     var options = {
       method: "POST",
-      url: "https://api.wassenger.com/v1/messages",
+      url: WASSENGER_API,
       headers: {
         "Content-Type": "application/json",
         Token: WASSENGER_TOKEN,
       },
       data: {
         phone: MOBILE_REPLY,
-        message: "Hello world, this is a sample message",
+        message: "Hello world, this is a sample message " + new Date(),
       },
     };
     const response = await axios(options);
