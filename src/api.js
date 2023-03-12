@@ -1,15 +1,23 @@
 const express = require("express");
-
 const serverless = require("serverless-http");
+const axios = require("axios");
 
 const app = express();
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+// function to get the data from the API 
+let getFacts = async () => {
+let response = await axios(`https://catfact.ninja/fact`);
+return response;
+};
+
+router.get("/", async (req, res) => {
     console.log("edwin", req);
+    let responseFact = await getFacts();
   res.json({
-    result: req,
+    result: "todo bien",
+    msg: responseFact.data.fact
   });
 });
 
