@@ -8,13 +8,33 @@ const app = express();
 const router = express.Router();
 
 router.post("/reply", async (req, res) => {
-  const body = JSON.parse(req.body);
-  console.log("edwin ->", body);
-
   const { data } = JSON.parse(req.body);
+  const opcion = data.body;
+  const fromNumber = data.fromNumber;
+  console.error("opcion ->", opcion);
+  console.error("fromNumber ->", fromNumber);
 
-  console.error("body ->", data.body);
-  console.error("fromNumber ->", data.fromNumber);
+  let respuesta = "";
+
+  switch (opcion) {
+    case "1":
+      respuesta = `Con la opción ${opcion} se consulta precio y disponibilidad`;
+      break;
+    case "2":
+      respuesta = `Con la opción ${opcion} se informan los métodos de pago`;
+      break;
+    case "3":
+      respuesta = `Con la opción ${opcion} se indican los horarios`;
+      break;
+    case "4":
+      respuesta = `Con la opción ${opcion} se contacta a un especialista`;
+      break;
+    case "5":
+      respuesta = `Con la opción ${opcion} se concreta la compra`;
+      break;
+    default:
+      respuesta = `Bienvenido, escribe el número de la opción del Menu\n1. Consultar precio y disponibilidad de Medicamentos 💊\n2. Métodos de pago 💳💵📲\n3. Para saber nuestros horarios ⏰ y canales de atención 👩🏻‍💻\n4. Para hablar con nuestros especialistas en Farmacia👨🏻‍⚕️\n5. Concretar compra 🛒💳 🤝`;
+  }
 
   try {
     const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
@@ -28,21 +48,11 @@ router.post("/reply", async (req, res) => {
         Token: WASSENGER_TOKEN,
       },
       data: {
-        //phone: fromNumber,
-        //message: `Escribieron: ${body} - ${new Date()}`,
-        phone: MOBILE_REPLY,
-        message: `Escribieron: ${new Date()}`,
+        phone: fromNumber,
+        message: respuesta,
       },
     };
     const response = await axios(options);
-    //console.log(response);
-    // const response = await axios.get(
-    //   "https://jsonplaceholder.typicode.com/posts"
-    // );
-    // let response = await axios('https://catfact.ninja/fact');
-    //const posts = response.data;
-    // //res.send(posts);
-    //console.log("posts", posts);
     res.json({
       result: "Este es el reply",
       phone: response.data.phone,
