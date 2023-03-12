@@ -1,31 +1,55 @@
+require('dotenv').config();
 const express = require("express");
-const serverless = require("serverless-http");
 const axios = require("axios");
+const serverless = require("serverless-http");
 
 const app = express();
 
 const router = express.Router();
 
-// function to get the data from the API 
-let getFacts = async () => {
-let response = await axios(`https://catfact.ninja/fact`);
-return response;
-};
-
-router.get("/", async (req, res) => {
-    console.log("edwin", req);
-    let responseFact = await getFacts();
-  res.json({
-    result: "todo bien",
-    msg: responseFact.data.fact
-  });
+router.get("/reply", async (req, res) => {
+  try {
+    const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
+    const MOBILE_REPLY = process.env.MOBILE_REPLY;
+    var options = {
+      method: "POST",
+      url: "https://api.wassenger.com/v1/messages",
+      headers: {
+        "Content-Type": "application/json",
+        Token: WASSENGER_TOKEN,
+      },
+      data: {
+        phone: MOBILE_REPLY,
+        message: "Hello world, this is a sample message",
+      },
+    };
+    const response = await axios(options);
+    console.log(response);
+    // const response = await axios.get(
+    //   "https://jsonplaceholder.typicode.com/posts"
+    // );
+    // let response = await axios('https://catfact.ninja/fact');
+    //const posts = response.data;
+    // //res.send(posts);
+    //console.log("posts", posts);
+    res.json({
+      result: "Este es el reply",
+      //msg: posts,
+    });
+  } catch (error) {
+    console.error("errores ->", error);
+    //res.status(500).send("Error retrieving posts");
+    res.json({
+      result: "error",
+    });
+  }
 });
 
-router.get("/test", (req, res) => {
-    res.json({
-      result: "test",
-    });
+router.get("/", (req, res) => {
+  res.json({
+    result: "Success",
   });
+});
 
 app.use("/.netlify/functions/api", router);
 
