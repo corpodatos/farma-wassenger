@@ -7,14 +7,15 @@ const app = express();
 const router = express.Router();
 
 router.get("/", (req, res) => {
+    console.log("edwin", req);
   res.json({
-    hello: "hi!",
+    result: req,
   });
 });
 
 router.get("/test", (req, res) => {
     res.json({
-      hello: "test",
+      result: "test",
     });
   });
 
