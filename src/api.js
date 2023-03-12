@@ -9,7 +9,12 @@ const router = express.Router();
 
 router.get("/reply", async (req, res) => {
   console.log("req ->", req);
-  const {body, fromNumber} = req.data;
+  
+  if (req.data){
+    const {body, fromNumber} = req.data;
+    console.error("body ->", body);
+    console.error("fromNumber ->", fromNumber);
+  }
 
   try {
     const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
@@ -23,8 +28,10 @@ router.get("/reply", async (req, res) => {
         Token: WASSENGER_TOKEN,
       },
       data: {
-        phone: fromNumber,
-        message: `Escribieron: ${body} - ${new Date()}`,
+        //phone: fromNumber,
+        //message: `Escribieron: ${body} - ${new Date()}`,
+        phone: MOBILE_REPLY,
+        message: `Escribieron: ${new Date()}`,
       },
     };
     const response = await axios(options);
