@@ -73,10 +73,26 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/test", (req, res) => {
-  res.json({
-    result: "Esto es test",
-  });
+router.get("/buscar", async (req, res) => {
+  const { busqueda } = req.body;
+  if (busqueda) {
+    var config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${process.env.BACKEND}/apirestserver/api/productos/${busqueda}`,
+    };
+
+    axios(config)
+      .then(function (response) {
+        res.send(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+        res.status(500).send(error);
+      });
+  } else {
+    res.status(404).send("busqueda vacía");
+  }
 });
 
 app.use("/.netlify/functions/api", router);

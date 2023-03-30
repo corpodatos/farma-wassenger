@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:local": "node index",
     "start": "./node_modules/.bin/netlify-lambda serve src",
     "build": "./node_modules/.bin/netlify-lambda build src",
     "test": "echo \"Error: no test specified\" && exit 1"
