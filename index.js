@@ -65,7 +65,7 @@ app.post("/offline", async (req, res) => {
         console.log("response ->", response.data);
         let mensaje = "";
         response.data.forEach((item) => {
-          mensaje += `${item.descripcion} Precio: Bs ${item.precio} Existencia: ${item.stock}\n`;
+          mensaje += `${item.descripcion} Precio: Bs ${item.precio} Existencia: ${item.stock}\n\n`;
         });
         res.json({
           result: mensaje,
