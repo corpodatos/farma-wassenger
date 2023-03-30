@@ -74,7 +74,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/buscar", async (req, res) => {
-  const { busqueda } = req.body;
+  const { busqueda } = JSON.parse(req.body);
   if (busqueda) {
     var config = {
       method: "get",
