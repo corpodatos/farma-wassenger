@@ -7,7 +7,49 @@ const app = express();
 
 const router = express.Router();
 
-router.post("/reply", async (req, res) => {
+router.get("/", (req, res) => {
+  res.json({
+    result: "Success",
+  });
+});
+
+router.post("/offline", async (req, res) => {
+  const { data } = JSON.parse(req.body);
+  const opcion = data.body;
+  const fromNumber = data.fromNumber;
+  console.error("opcion ->", opcion);
+  console.error("fromNumber ->", fromNumber);
+
+  let respuesta = "";
+
+  switch (opcion) {
+    case "1":
+      respuesta = `Con la opción ${opcion} se consulta precio y disponibilidad`;
+      break;
+    case "2":
+      respuesta = `Con la opción ${opcion} se informan los métodos de pago`;
+      break;
+    case "3":
+      respuesta = `Con la opción ${opcion} se indican los horarios`;
+      break;
+    case "4":
+      respuesta = `Con la opción ${opcion} se contacta a un especialista`;
+      break;
+    case "5":
+      respuesta = `Con la opción ${opcion} se concreta la compra`;
+      break;
+    default:
+      respuesta = `Bienvenido, escribe el número de la opción del Menu\n1. Consultar precio y disponibilidad de Medicamentos 💊\n2. Métodos de pago 💳💵📲\n3. Para saber nuestros horarios ⏰ y canales de atención 👩🏻‍💻\n4. Para hablar con nuestros especialistas en Farmacia👨🏻‍⚕️\n5. Concretar compra 🛒💳 🤝`;
+  }
+
+  res.json({
+    result: `Este es el reply: ${respuesta}`,
+    // phone: response.data.phone,
+    // createdAt: response.data.createdAt,
+  });
+});
+
+router.post("/wassenger", async (req, res) => {
   const { data } = JSON.parse(req.body);
   const opcion = data.body;
   const fromNumber = data.fromNumber;
@@ -65,12 +107,6 @@ router.post("/reply", async (req, res) => {
       result: "error",
     });
   }
-});
-
-router.get("/", (req, res) => {
-  res.json({
-    result: "Success",
-  });
 });
 
 router.get("/buscar", async (req, res) => {
