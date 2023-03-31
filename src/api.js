@@ -104,6 +104,9 @@ router.post("/wassenger", async (req, res) => {
           respuesta += `${item.descripcion} Precio: Bs ${item.precio} Existencia: ${item.stock}\n\n`;
         });
         console.log("respuesta ->", respuesta);
+        if (!respuesta){
+          respuesta = `${busquesda} no encontrado`;
+        }
         /*
         res.json({
           result: mensaje,
