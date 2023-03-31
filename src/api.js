@@ -100,10 +100,10 @@ router.post("/wassenger", async (req, res) => {
     await axios(config)
       .then(async (response) => {
         console.log("response ->", response.data);
-        let mensaje = "";
         response.data.forEach((item) => {
-          mensaje += `${item.descripcion} Precio: Bs ${item.precio} Existencia: ${item.stock}\n\n`;
+          respuesta += `${item.descripcion} Precio: Bs ${item.precio} Existencia: ${item.stock}\n\n`;
         });
+        console.log("respuesta ->", respuesta);
         /*
         res.json({
           result: mensaje,
