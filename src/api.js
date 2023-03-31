@@ -105,7 +105,7 @@ router.post("/wassenger", async (req, res) => {
         });
         console.log("respuesta ->", respuesta);
         if (!respuesta){
-          respuesta = `${busquesda} no encontrado`;
+          respuesta = `${busqueda} no encontrado`;
         }
         /*
         res.json({
