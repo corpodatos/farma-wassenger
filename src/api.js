@@ -107,13 +107,6 @@ router.post("/wassenger", async (req, res) => {
         if (!respuesta){
           respuesta = `${busqueda} no encontrado`;
         }
-        /*
-        res.json({
-          result: mensaje,
-          // phone: response.data.phone,
-          // createdAt: response.data.createdAt,
-        });
-        */
 
         try {
           const WASSENGER_TOKEN = process.env.WASSENGER_TOKEN;
@@ -133,13 +126,12 @@ router.post("/wassenger", async (req, res) => {
           };
           const response = await axios(options);
           res.json({
-            result: "Este es el reply",
+            result: respuesta,
             phone: response.data.phone,
             createdAt: response.data.createdAt,
           });
         } catch (error) {
           console.error("errores ->", error);
-          //res.status(500).send("Error retrieving posts");
           res.json({
             result: "error",
           });
